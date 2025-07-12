@@ -16,16 +16,16 @@ const GameFrame = styled.iframe`
   border: none;
 `;
 
-export default function DeepSeaFishing() {
+export default function IceFishing() {
   return (
     <>
       <Head>
-        <title>深海钓鱼 - HTML5游戏</title>
-        <meta name="description" content="体验刺激的深海钓鱼游戏" />
+        <title>冰上钓鱼 - HTML5游戏</title>
+        <meta name="description" content="体验冰上钓鱼的刺激" />
       </Head>
       <GameContainer>
         <GameFrame 
-          src="https://www.crazygames.com/embed-iframe/real-fishing-simulator"
+          src="https://www.crazygames.com/embed-iframe/ice-fishing-io"
           allow="fullscreen"
           sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
         />

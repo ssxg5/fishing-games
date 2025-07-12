@@ -16,16 +16,16 @@ const GameFrame = styled.iframe`
   border: none;
 `;
 
-export default function DeepSeaFishing() {
+export default function RiverFishing() {
   return (
     <>
       <Head>
-        <title>深海钓鱼 - HTML5游戏</title>
-        <meta name="description" content="体验刺激的深海钓鱼游戏" />
+        <title>河流探险 - HTML5游戏</title>
+        <meta name="description" content="体验河流钓鱼的乐趣" />
       </Head>
       <GameContainer>
         <GameFrame 
-          src="https://www.crazygames.com/embed-iframe/real-fishing-simulator"
+          src="https://www.crazygames.com/embed-iframe/fishing-frenzy"
           allow="fullscreen"
           sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
         />
