@@ -1,94 +1,137 @@
-import React from 'react';
 import styled from 'styled-components';
+import Head from 'next/head';
+
+const games = [
+  {
+    id: 1,
+    title: '钓鱼游戏1',
+    description: '休闲钓鱼游戏',
+    thumbnail: '/images/game1.jpg',
+    url: 'https://example.com/game1'
+  },
+  // 后续可以添加更多游戏
+];
+
+const HomePage = () => {
+  return (
+    <>
+      <Head>
+        <title>钓鱼游戏合集</title>
+        <meta name="description" content="收集各种有趣的钓鱼游戏" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Container>
+        <Header>
+          <h1>钓鱼游戏合集</h1>
+          <p>收集各种有趣的钓鱼游戏</p>
+        </Header>
+        <GameGrid>
+          {games.map(game => (
+            <GameCard key={game.id}>
+              <GameThumbnail>
+                <img src={game.thumbnail} alt={game.title} />
+              </GameThumbnail>
+              <GameInfo>
+                <h2>{game.title}</h2>
+                <p>{game.description}</p>
+                <PlayButton href={game.url}>开始游戏</PlayButton>
+              </GameInfo>
+            </GameCard>
+          ))}
+        </GameGrid>
+      </Container>
+    </>
+  );
+};
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: var(--max-width);
   margin: 0 auto;
-  padding: 20px;
+  padding: 2rem;
 `;
 
 const Header = styled.header`
   text-align: center;
-  margin-bottom: 40px;
-`;
+  margin-bottom: 3rem;
 
-const Title = styled.h1`
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 10px;
-`;
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
 
-const Subtitle = styled.p`
-  font-size: 1.2rem;
-  color: #666;
+  p {
+    font-size: 1.2rem;
+    color: #666;
+  }
 `;
 
 const GameGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 40px;
+  gap: 2rem;
 `;
 
 const GameCard = styled.div`
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background: #2d2d2d;
   }
 `;
 
-const GameImage = styled.div`
-  width: 100%;
-  height: 200px;
-  background: #f0f0f0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const GameThumbnail = styled.div`
+  position: relative;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const GameInfo = styled.div`
-  padding: 15px;
+  padding: 1.5rem;
+
+  h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 1rem;
+
+    @media (prefers-color-scheme: dark) {
+      color: #999;
+    }
+  }
 `;
 
-const GameTitle = styled.h3`
-  margin: 0;
-  color: #333;
-  font-size: 1.2rem;
+const PlayButton = styled.a`
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: #0070f3;
+  color: white;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #0051cc;
+  }
 `;
 
-const GameDescription = styled.p`
-  color: #666;
-  font-size: 0.9rem;
-  margin: 10px 0;
-`;
-
-export default function Home() {
-  return (
-    <Container>
-      <Header>
-        <Title>钓鱼游戏合集</Title>
-        <Subtitle>收集了最好玩的在线钓鱼游戏</Subtitle>
-      </Header>
-
-      <GameGrid>
-        {/* 示例游戏卡片 */}
-        <GameCard>
-          <GameImage>
-            <span>游戏预览图</span>
-          </GameImage>
-          <GameInfo>
-            <GameTitle>示例游戏</GameTitle>
-            <GameDescription>
-              这是一个有趣的钓鱼游戏示例，稍后我们会添加真实的游戏内容。
-            </GameDescription>
-          </GameInfo>
-        </GameCard>
-      </GameGrid>
-    </Container>
-  );
-} 
+export default HomePage; 

@@ -1,76 +1,57 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 interface GameFrameProps {
-  gameUrl: string;
+  url: string;
   title: string;
 }
 
-const GameContainer = styled.div`
-  width: 100%;
-  height: 600px;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background: #f5f5f5;
-  position: relative;
-`;
-
-const StyledIframe = styled.iframe`
-  width: 100%;
-  height: 100%;
-  border: none;
-`;
-
-const LoadingOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.9);
-  font-size: 1.2rem;
-  color: #333;
-`;
-
-export const GameFrame: React.FC<GameFrameProps> = ({ gameUrl, title }) => {
+const GameFrame: React.FC<GameFrameProps> = ({ url, title }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [isLoading, setIsLoading] = React.useState(true);
 
   useEffect(() => {
-    const handleLoad = () => {
-      setIsLoading(false);
-    };
-
-    const iframe = iframeRef.current;
-    if (iframe) {
-      iframe.addEventListener('load', handleLoad);
-    }
-
-    return () => {
-      if (iframe) {
-        iframe.removeEventListener('load', handleLoad);
+    const handleMessage = (event: MessageEvent) => {
+      // 验证消息来源
+      if (new URL(url).origin !== event.origin) {
+        return;
       }
+
+      // 处理来自游戏的消息
+      console.log('Received message from game:', event.data);
     };
-  }, []);
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [url]);
 
   return (
     <GameContainer>
-      <StyledIframe
+      <iframe
         ref={iframeRef}
-        src={gameUrl}
+        src={url}
         title={title}
-        sandbox="allow-scripts allow-same-origin"
-        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
       />
-      {isLoading && (
-        <LoadingOverlay>
-          <span>游戏加载中...</span>
-        </LoadingOverlay>
-      )}
     </GameContainer>
   );
-}; 
+};
+
+const GameContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+`;
+
+export default GameFrame; 
