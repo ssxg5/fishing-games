@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/fishing-games',
+  basePath: process.env.NODE_ENV === 'production' ? '/fishing-games' : '',
   images: {
     unoptimized: true
   }

@@ -43,7 +43,7 @@ const DeepSeaFishing = () => {
           <BackButton>返回首页</BackButton>
         </Link>
         <GameFrame
-          src="https://raw.githubusercontent.com/ssxg5/fishing-games/main/games/deep-sea-fishing/index.html"
+          src="/games/deep-sea-fishing/index.html"
           title="深海钓鱼"
           sandbox="allow-scripts allow-same-origin"
         />
