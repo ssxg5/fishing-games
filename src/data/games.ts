@@ -11,21 +11,21 @@ export const games: Game[] = [
     id: 1,
     title: '深海钓鱼',
     description: '探索深海世界，钓取稀有鱼类',
-    thumbnail: '/fishing-games/images/deep-sea-fishing.jpg',
-    url: 'https://ssxg5.github.io/fishing-games/games/deep-sea-fishing'
+    thumbnail: '/fishing-games/games/deep-sea-fishing/images/thumbnail.jpg',
+    url: '/fishing-games/games/deep-sea-fishing'
   },
   {
     id: 2,
     title: '河流探险',
     description: '在平静的河流中享受钓鱼的乐趣',
-    thumbnail: '/fishing-games/images/river-fishing.jpg',
-    url: 'https://ssxg5.github.io/fishing-games/games/river-fishing'
+    thumbnail: '/fishing-games/games/river-fishing/images/thumbnail.jpg',
+    url: '/fishing-games/games/river-fishing'
   },
   {
     id: 3,
     title: '冰上钓鱼',
     description: '体验刺激的冰上钓鱼运动',
-    thumbnail: '/fishing-games/images/ice-fishing.jpg',
-    url: 'https://ssxg5.github.io/fishing-games/games/ice-fishing'
+    thumbnail: '/fishing-games/games/ice-fishing/images/thumbnail.jpg',
+    url: '/fishing-games/games/ice-fishing'
   }
 ]; 
