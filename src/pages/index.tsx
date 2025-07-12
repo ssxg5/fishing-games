@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import GameFrame from '../components/GameFrame';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -16,40 +15,40 @@ const Header = styled.header`
 const Title = styled.h1`
   font-size: 2.5rem;
   color: #333;
+  margin-bottom: 10px;
 `;
 
-const GameContainer = styled.div`
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin-bottom: 30px;
+const Subtitle = styled.p`
+  font-size: 1.2rem;
+  color: #666;
 `;
 
-const GameList = styled.div`
+const GameGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  margin-top: 30px;
+  margin-top: 40px;
 `;
 
 const GameCard = styled.div`
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.2s;
-  cursor: pointer;
 
   &:hover {
     transform: translateY(-5px);
   }
 `;
 
-const GameImage = styled.img`
+const GameImage = styled.div`
   width: 100%;
-  height: 160px;
-  object-fit: cover;
+  height: 200px;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const GameInfo = styled.div`
@@ -58,71 +57,38 @@ const GameInfo = styled.div`
 
 const GameTitle = styled.h3`
   margin: 0;
-  font-size: 1.2rem;
   color: #333;
+  font-size: 1.2rem;
 `;
 
 const GameDescription = styled.p`
-  margin: 10px 0;
   color: #666;
   font-size: 0.9rem;
+  margin: 10px 0;
 `;
 
-interface Game {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  url: string;
-}
-
 export default function Home() {
-  const [selectedGame, setSelectedGame] = useState<Game | null>(null);
-
-  const games: Game[] = [
-    {
-      id: 'tiny-fishing',
-      title: 'Tiny Fishing',
-      description: '简单有趣的钓鱼游戏，适合所有年龄段的玩家',
-      image: '/images/tiny-fishing.jpg',
-      url: 'https://example.com/tiny-fishing'
-    },
-    {
-      id: 'gone-fishing',
-      title: 'Gone Fishing',
-      description: '探索海洋世界，挑战各种鱼类',
-      image: '/images/gone-fishing.jpg',
-      url: 'https://example.com/gone-fishing'
-    }
-  ];
-
-  const handleGameSelect = (game: Game) => {
-    setSelectedGame(game);
-  };
-
   return (
     <Container>
       <Header>
-        <Title>钓鱼游戏天地</Title>
+        <Title>钓鱼游戏合集</Title>
+        <Subtitle>收集了最好玩的在线钓鱼游戏</Subtitle>
       </Header>
 
-      {selectedGame && (
-        <GameContainer>
-          <GameFrame url={selectedGame.url} title={selectedGame.title} />
-        </GameContainer>
-      )}
-
-      <GameList>
-        {games.map((game) => (
-          <GameCard key={game.id} onClick={() => handleGameSelect(game)}>
-            <GameImage src={game.image} alt={game.title} />
-            <GameInfo>
-              <GameTitle>{game.title}</GameTitle>
-              <GameDescription>{game.description}</GameDescription>
-            </GameInfo>
-          </GameCard>
-        ))}
-      </GameList>
+      <GameGrid>
+        {/* 示例游戏卡片 */}
+        <GameCard>
+          <GameImage>
+            <span>游戏预览图</span>
+          </GameImage>
+          <GameInfo>
+            <GameTitle>示例游戏</GameTitle>
+            <GameDescription>
+              这是一个有趣的钓鱼游戏示例，稍后我们会添加真实的游戏内容。
+            </GameDescription>
+          </GameInfo>
+        </GameCard>
+      </GameGrid>
     </Container>
   );
 } 
