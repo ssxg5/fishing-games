@@ -2,36 +2,31 @@ import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 interface GameFrameProps {
-  url: string;
+  gameUrl: string;
   title: string;
 }
 
-const GameFrame: React.FC<GameFrameProps> = ({ url, title }) => {
+const GameFrame: React.FC<GameFrameProps> = ({ gameUrl, title }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      // 验证消息来源
-      if (new URL(url).origin !== event.origin) {
-        return;
-      }
-
-      // 处理来自游戏的消息
-      console.log('Received message from game:', event.data);
-    };
-
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, [url]);
+    // 添加必要的安全措施
+    if (iframeRef.current) {
+      iframeRef.current.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups');
+    }
+  }, []);
 
   return (
     <GameContainer>
       <iframe
         ref={iframeRef}
-        src={url}
+        src={gameUrl}
         title={title}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+        width="100%"
+        height="100%"
+        frameBorder="0"
+        loading="lazy"
+        allowFullScreen
       />
     </GameContainer>
   );
@@ -40,16 +35,17 @@ const GameFrame: React.FC<GameFrameProps> = ({ url, title }) => {
 const GameContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100vh;
-  background: #000;
+  height: 90vh;
+  background: #f5f5f5;
+  border-radius: var(--border-radius);
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  @media (prefers-color-scheme: dark) {
+    background: #1a1a1a;
+  }
 
   iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     border: none;
   }
 `;

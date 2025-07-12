@@ -1,18 +1,15 @@
 import styled from 'styled-components';
 import Head from 'next/head';
-
-const games = [
-  {
-    id: 1,
-    title: '钓鱼游戏1',
-    description: '休闲钓鱼游戏',
-    thumbnail: '/images/game1.jpg',
-    url: 'https://example.com/game1'
-  },
-  // 后续可以添加更多游戏
-];
+import { useRouter } from 'next/router';
+import { games } from '@/data/games';
 
 const HomePage = () => {
+  const router = useRouter();
+
+  const handlePlayClick = (gameId: number) => {
+    router.push(`/games/${gameId}`);
+  };
+
   return (
     <>
       <Head>
@@ -35,7 +32,9 @@ const HomePage = () => {
               <GameInfo>
                 <h2>{game.title}</h2>
                 <p>{game.description}</p>
-                <PlayButton href={game.url}>开始游戏</PlayButton>
+                <PlayButton onClick={() => handlePlayClick(game.id)}>
+                  开始游戏
+                </PlayButton>
               </GameInfo>
             </GameCard>
           ))}
@@ -63,6 +62,10 @@ const Header = styled.header`
   p {
     font-size: 1.2rem;
     color: #666;
+    
+    @media (prefers-color-scheme: dark) {
+      color: #999;
+    }
   }
 `;
 
@@ -120,13 +123,15 @@ const GameInfo = styled.div`
   }
 `;
 
-const PlayButton = styled.a`
+const PlayButton = styled.button`
   display: inline-block;
   padding: 0.8rem 1.5rem;
   background: #0070f3;
   color: white;
+  border: none;
   border-radius: var(--border-radius);
   font-weight: 500;
+  cursor: pointer;
   transition: background 0.2s;
 
   &:hover {

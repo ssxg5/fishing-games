@@ -1,15 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   compiler: {
     styledComponents: true,
   },
-  output: 'export',
   images: {
+    domains: ['example.com'],
     unoptimized: true,
   },
+  output: 'export',
   basePath: '/fishing-games',
   assetPrefix: '/fishing-games/',
-  trailingSlash: true,
-}
+};
 
-module.exports = nextConfig 
+module.exports = nextConfig; 
