@@ -9,6 +9,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  output: 'export',
   // 配置允许的游戏源
   async headers() {
     return [
