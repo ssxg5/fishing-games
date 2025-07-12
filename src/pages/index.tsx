@@ -6,8 +6,8 @@ import { games } from '@/data/games';
 const HomePage = () => {
   const router = useRouter();
 
-  const handlePlayClick = (gameId: number) => {
-    router.push(`/games/${gameId}`);
+  const handlePlayClick = (game: typeof games[0]) => {
+    router.push(`/games/${game.path}`);
   };
 
   return (
@@ -32,7 +32,7 @@ const HomePage = () => {
               <GameInfo>
                 <h2>{game.title}</h2>
                 <p>{game.description}</p>
-                <PlayButton onClick={() => handlePlayClick(game.id)}>
+                <PlayButton onClick={() => handlePlayClick(game)}>
                   开始游戏
                 </PlayButton>
               </GameInfo>

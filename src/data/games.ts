@@ -4,6 +4,7 @@ export interface Game {
   description: string;
   thumbnail: string;
   url: string;
+  path: string;
 }
 
 export const games: Game[] = [
@@ -12,20 +13,23 @@ export const games: Game[] = [
     title: '深海钓鱼',
     description: '探索深海世界，钓取稀有鱼类',
     thumbnail: '/games/deep-sea-fishing/images/thumbnail.jpg',
-    url: '/games/deep-sea-fishing'
+    url: '/games/deep-sea-fishing/index.html',
+    path: 'deep-sea-fishing'
   },
   {
     id: 2,
     title: '河流探险',
     description: '在平静的河流中享受钓鱼的乐趣',
     thumbnail: '/games/river-fishing/images/thumbnail.jpg',
-    url: '/games/river-fishing'
+    url: '/games/river-fishing/index.html',
+    path: 'river-fishing'
   },
   {
     id: 3,
     title: '冰上钓鱼',
     description: '体验刺激的冰上钓鱼运动',
     thumbnail: '/games/ice-fishing/images/thumbnail.jpg',
-    url: '/games/ice-fishing'
+    url: '/games/ice-fishing/index.html',
+    path: 'ice-fishing'
   }
 ]; 
