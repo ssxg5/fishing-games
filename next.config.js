@@ -5,12 +5,11 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ['example.com'],
     unoptimized: true,
   },
   output: 'export',
   basePath: '/fishing-games',
-  assetPrefix: '/fishing-games/',
+  trailingSlash: true,
 };
 
 module.exports = nextConfig; 
