@@ -4,6 +4,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { games } from '@/data/games';
+import GameFrame from '@/components/GameFrame';
 
 // 广告位组件
 const AdPlaceholder = styled.div<{ position: string }>`
@@ -28,13 +29,7 @@ const GameWrapper = styled.div`
   margin: 2rem 0;
 `;
 
-const GameFrame = styled.iframe<{ aspectRatio: string }>`
-  width: 100%;
-  aspect-ratio: ${props => props.aspectRatio};
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-`;
+// GameFrame component imported from @/components/GameFrame
 
 const BackButton = styled(Link)`
   display: inline-block;
@@ -54,7 +49,7 @@ const GamePage = () => {
   const router = useRouter();
   const { id } = router.query;
   
-  const game = games.find(g => g.path === id);
+  const game = games.find(g => g.id === id);
   
   if (!game) {
     return null;
@@ -65,7 +60,7 @@ const GamePage = () => {
       <Head>
         <title>{game.seoTitle}</title>
         <meta name="description" content={game.seoDescription} />
-        <meta name="keywords" content={game.keywords.join(', ')} />
+        <meta name="keywords" content={game.keywords?.join(', ') || ''} />
         {/* Open Graph tags */}
         <meta property="og:title" content={game.seoTitle} />
         <meta property="og:description" content={game.seoDescription} />
@@ -76,32 +71,33 @@ const GamePage = () => {
       <GameContainer>
         <BackButton href="/">返回首页</BackButton>
         
-        {game.adPositions.top && (
+        {game.adPositions?.top && (
           <AdPlaceholder position="top">广告位 - 顶部</AdPlaceholder>
         )}
 
         <h1>{game.title}</h1>
         <p>{game.description}</p>
 
-        {game.adPositions.beforeGame && (
+        {game.adPositions?.beforeGame && (
           <AdPlaceholder position="before-game">广告位 - 游戏前</AdPlaceholder>
         )}
 
         <GameWrapper>
           <GameFrame
-            src={game.url}
+            gameUrl={game.gameUrl}
             title={game.title}
             aspectRatio={game.config.aspectRatio}
-            sandbox="allow-scripts allow-same-origin"
-            allowFullScreen={game.config.allowFullscreen}
+            sandbox={game.config.sandbox}
+            allowFullscreen={game.config.allowFullscreen}
+            lazy={false}
           />
         </GameWrapper>
 
-        {game.adPositions.afterGame && (
+        {game.adPositions?.afterGame && (
           <AdPlaceholder position="after-game">广告位 - 游戏后</AdPlaceholder>
         )}
 
-        {game.adPositions.bottom && (
+        {game.adPositions?.bottom && (
           <AdPlaceholder position="bottom">广告位 - 底部</AdPlaceholder>
         )}
       </GameContainer>

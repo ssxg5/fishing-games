@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
+import PerformanceMonitor from '@/components/PerformanceMonitor';
 import '../styles/globals.css';
 
 const theme = {
@@ -20,6 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <Component {...pageProps} />
+      <PerformanceMonitor />
     </ThemeProvider>
   );
 } 
